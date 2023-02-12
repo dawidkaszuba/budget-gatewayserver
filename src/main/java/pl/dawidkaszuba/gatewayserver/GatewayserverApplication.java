@@ -18,10 +18,10 @@ public class GatewayserverApplication {
 	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route(p-> p
-						.path("/users/**")
-						.uri("lb://USER-SERVICE"))
+						.path("/budget/**")
+						.uri("lb://BUDGETSERVICE"))
 				.route(p -> p
-						.path("/expenses/**")
-						.uri("lb://EXPENSE-SERVICE")).build();
+						.path("/report/**")
+						.uri("lb://REPORTSERVICE")).build();
 	}
 }

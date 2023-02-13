@@ -23,13 +23,13 @@ public class GatewayserverApplication {
 		return builder.routes()
 				.route(p -> p
 						.path("/homebudget/budget/**")
-						.filters(f -> f
+						.filters(f -> f.filters(filterFactory.apply())
 								.rewritePath("/homebudget/budget/(?<segment>.*)","/${segment}")
 								.removeRequestHeader("Cookie"))
 						.uri("lb://BUDGETSERVICE"))
 				.route(p -> p
 						.path("/homebudget/budget/**")
-						.filters(f -> f
+						.filters(f -> f.filters(filterFactory.apply())
 								.rewritePath("/homebudget/report/(?<segment>.*)","/${segment}")
 								.removeRequestHeader("Cookie"))
 						.uri("lb://REPORTSERVICE"))

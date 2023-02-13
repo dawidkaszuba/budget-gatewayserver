@@ -13,7 +13,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
-        http.oauth2Login(Customizer.withDefaults());
+        http.authorizeExchange(ex -> ex
+                        .pathMatchers("/homebudget/budget/**").authenticated()
+                        .pathMatchers("/homebudget/report/**").authenticated())
+                .oauth2Login(Customizer.withDefaults());
+        http.csrf().disable();
         return http.build();
     }
 }

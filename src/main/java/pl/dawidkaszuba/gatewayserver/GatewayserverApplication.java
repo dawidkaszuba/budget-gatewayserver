@@ -17,11 +17,18 @@ public class GatewayserverApplication {
 	@Bean
 	public RouteLocator myRoutes(RouteLocatorBuilder builder) {
 		return builder.routes()
-				.route(p-> p
-						.path("/budget/**")
+				.route(p -> p
+						.path("/homebudget/budget/**")
+						.filters(f -> f
+								.rewritePath("/homebudget/budget/(?<segment>.*)","/${segment}")
+								.removeRequestHeader("Cookie"))
 						.uri("lb://BUDGETSERVICE"))
 				.route(p -> p
-						.path("/report/**")
-						.uri("lb://REPORTSERVICE")).build();
+						.path("/homebudget/budget/**")
+						.filters(f -> f
+								.rewritePath("/homebudget/report/(?<segment>.*)","/${segment}")
+								.removeRequestHeader("Cookie"))
+						.uri("lb://REPORTSERVICE"))
+				.build();
 	}
 }

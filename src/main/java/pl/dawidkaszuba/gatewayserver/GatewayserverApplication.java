@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.filter.factory.TokenRelayGatewayFilterF
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 
 @SpringBootApplication
 public class GatewayserverApplication {
@@ -28,7 +29,7 @@ public class GatewayserverApplication {
 								.removeRequestHeader("Cookie"))
 						.uri("lb://BUDGETSERVICE"))
 				.route(p -> p
-						.path("/homebudget/budget/**")
+						.path("/homebudget/report/**")
 						.filters(f -> f.filters(filterFactory.apply())
 								.rewritePath("/homebudget/report/(?<segment>.*)","/${segment}")
 								.removeRequestHeader("Cookie"))
